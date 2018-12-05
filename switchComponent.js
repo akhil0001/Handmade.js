@@ -1,97 +1,101 @@
 class HandmadeSwitch extends HTMLElement {
-    constructor(){
+    get Flag()
+    {
+        return this.getAttribute('flag');
+    }
+    constructor() {
         super();
 
-        var shadowElement =  this.attachShadow({mode:'open'});
+        var shadowElement = this.attachShadow({
+            mode: 'open'
+        });
 
-        var label = document.createElement('label');
-        label.className = "switch";
-        var checkbox = document.createElement('input');
-        checkbox.type = "checkbox";
-        var slider = document.createElement('span');
-        slider.className = "slider";
-
-        label.appendChild(checkbox);
-        label.appendChild(slider);
-
-        var stateFlag = this.hasAttribute('value');
-        // if(stateFlag)
-        
-
-        var appendStyles = function() {
-            return `
-            .switch {
-                position: relative;
-                display: inline-block;
-                width: 50px;
-                height: 24px;
-                border: 2px solid #000;
-                border-radius: 95% 4% 93% 5%/4% 95% 5% 93%;
-                -webkit-border-radius: 95% 4% 93% 5%/4% 95% 5% 93%;
-                -moz-border-radius: 95% 4% 93% 5%/4% 95% 5% 93%;
-                -ms-border-radius: 95% 4% 93% 5%/4% 95% 5% 93%;
-                -o-border-radius: 95% 4% 93% 5%/4% 95% 5% 93%;
+        var flag = this.getFlag();
+        // if (!flag)
+        // flag = 'false';
+        debugger;
+        function toggleFlag() {
+            if (flag === 'false') {
+                flag = 'true';
+            } else {
+                flag = 'false';
             }
-            .switch input {
-                opacity: 0;
-                width: 0;
-                height: 0;
-            }
-            
-            .slider {
-                position: absolute;
-                cursor: pointer;
-                top: 0;
-                left: 0;
-                bottom: 0;
-                right: 0;
-                background-color: #ccc;
-                transition: .4s;
-                -webkit-transition: .4s;
-                -moz-transition: .4s;
-                -ms-transition: .4s;
-                -o-transition: .4s;
-            }
-            
-            
-            .slider::before {
-                position: absolute;
-                content: "";
-                height: 22px;
-                width: 25px;
-                left: 0px;
-                bottom: 1px;
-                background-color: white;
-                -webkit-transition: .4s;
-                transition: .4s;
-                border-radius: 1px;
-                -webkit-border-radius: 1px;
-                -moz-border-radius: 1px;
-                -ms-border-radius: 1px;
-                -o-border-radius: 1px;
-            }
-            
-            input:checked+.slider {
-                background-color: #2196F3;
-            }
-            
-            
-            input:checked+.slider:before {
-                
-                transform: translateX(30px);
-                -webkit-transform: translateX(25px);
-                -moz-transform: translateX(25px);
-                -ms-transform: translateX(25px);
-                -o-transform: translateX(25px);
-            }
-            `
+            switchDiv.setAttribute('data-value', flag);
+            this.setAttribute('flag', flag);
         }
-        shadowElement.appendChild(label);
-        var stylesForNode = document.createElement('style');
-        var styles =  appendStyles();
-        stylesForNode.textContent = styles;
-        shadowElement.appendChild(stylesForNode);
+        var switchDiv = document.createElement('div');
+        switchDiv.className = "switch";
+        switchDiv.setAttribute('data-value', flag);
+        switchDiv.addEventListener("click", toggleFlag);
+
+        var sliderSpan = document.createElement('span');
+        sliderSpan.className = "slider";
+
+        switchDiv.appendChild(sliderSpan);
+
+        var styles = `
+        .switch
+        {
+            position:relative;
+            display: inline-block;
+            width:50px;
+            height:24px;
+            border: 2px solid #111111;
+            border-radius: 95% 4% 93% 5%/4% 95% 5% 93%;
+            -webkit-border-radius: 95% 4% 93% 5%/4% 95% 5% 93%;
+            -moz-border-radius: 95% 4% 93% 5%/4% 95% 5% 93%;
+            -ms-border-radius: 95% 4% 93% 5%/4% 95% 5% 93%;
+            -o-border-radius: 95% 4% 93% 5%/4% 95% 5% 93%;
+            background: #ddd;
+            cursor: pointer;
+            transition: .3s;
+            -webkit-transition: .3s;
+            -moz-transition: .3s;
+            -ms-transition: .3s;
+            -o-transition: .3s;
+        }
+        .slider
+        {
+            position: absolute;
+            left:0px;
+            top:5%;
+            height:90%;
+            width:45%;
+            background:#fff;
+            border-radius: 2px;
+            -webkit-border-radius: 2px;
+            -moz-border-radius: 2px;
+            -ms-border-radius: 2px;
+            -o-border-radius: 2px;
+            transition: .5s;
+            -webkit-transition: .3s;
+            -moz-transition: .5s;
+            -ms-transition: .5s;
+            -o-transition: .5s;
+        }
+        .switch[data-value = "true"] .slider
+        {
+            transform: translateX(120%);
+            -webkit-transform: translateX(120%);
+            -moz-transform: translateX(120%);
+            -ms-transform: translateX(120%);
+            -o-transform: translateX(120%);
+        }
+        
+        .switch[data-value = "true"]{
+            background: blueviolet;
+            border: 2px solid #111111;
+        }`;
+
+        var style = document.createElement('style');
+        style.textContent = styles;
+
+        shadowElement.appendChild(switchDiv);
+        shadowElement.appendChild(style);
+
     }
 }
 
-customElements.define('handmade-switch',HandmadeSwitch);
+
+
+customElements.define('handmade-switch', HandmadeSwitch);
