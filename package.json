@@ -1,0 +1,26 @@
+{
+  "name": "handmadeswitch",
+  "version": "0.0.1",
+  "description": "This is a sketchy version and first widget of the handmade.js web component library ",
+  "main": "switchComponent.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akhil0001/Handmade.js.git"
+  },
+  "keywords": [
+    "handmade",
+    "UI",
+    "switch",
+    "akhil0001",
+    "npm"
+  ],
+  "author": "Akhil Sai Ram Chennareddy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/akhil0001/Handmade.js/issues"
+  },
+  "homepage": "https://github.com/akhil0001/Handmade.js#readme"
+}
